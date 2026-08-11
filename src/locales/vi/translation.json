@@ -1,0 +1,50 @@
+{
+  "menu": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "users": "Quản lý người dùng",
+    "company": "Quản lý công ty",
+    "jobs": "Quản lý việc làm",
+    "logout": "Đăng xuất"
+  },
+  "home": {
+    "title": "Chào mừng bạn đến với Trang chủ",
+    "description": "Đây là trang chủ của hệ thống quản lý việc làm.",
+    "studentCount": "Lớp học hiện có {{count}} sinh viên."
+  },
+  "company": {
+    "title": "Quản lý công ty",
+    "description": "Trang quản lý thông tin công ty."
+  },
+  "job": {
+    "title": "Quản lý việc làm",
+    "description": "Trang quản lý các tin tuyển dụng."
+  },
+  "userManagement": {
+    "title": "Hệ thống Quản lý Người dùng",
+    "form": {
+      "createTitle": "Thêm Account mới",
+      "editTitle": "Sửa thông tin Account",
+      "username": "Tên đăng nhập",
+      "password": "Mật khẩu",
+      "fullName": "Họ và tên",
+      "email": "Email",
+      "phone": "Số điện thoại",
+      "role": "Vai trò (Role)",
+      "status": "Trạng thái (Status)",
+      "submit": "Lưu",
+      "cancel": "Hủy"
+    }
+  },
+  "about": {
+    "title": "Giới thiệu",
+    "description": "Ứng dụng hỗ trợ nhiều ngôn ngữ."
+  },
+  "language": {
+    "vietnamese": "Tiếng Việt",
+    "english": "Tiếng Anh"
+  }
+}

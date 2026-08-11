@@ -1,8 +1,12 @@
+import { useTranslation } from "react-i18next";
+
 function ManaCompany() {
+    const { t } = useTranslation();
+
     return(
-        <div className="container">
-            <h1>Company Management</h1>
-            <p>This is the company management page.</p>
+        <div className="container mt-4">
+            <h1>{t("company.title")}</h1>
+            <p>{t("company.description")}</p>
         </div>
     );
 }

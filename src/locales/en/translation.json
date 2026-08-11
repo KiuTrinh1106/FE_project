@@ -1,0 +1,50 @@
+{
+  "menu": {
+    "home": "Home",
+    "about": "About"
+  },
+  "nav": {
+    "home": "Home",
+    "users": "User management",
+    "company": "Company management",
+    "jobs": "Job management",
+    "logout": "Logout"
+  },
+  "home": {
+    "title": "Welcome to the Home Page",
+    "description": "This is the home page of the job management system.",
+    "studentCount": "The class currently has {{count}} students."
+  },
+  "company": {
+    "title": "Company management",
+    "description": "Page for managing company information."
+  },
+  "job": {
+    "title": "Job management",
+    "description": "Page for managing job postings."
+  },
+  "userManagement": {
+    "title": "User Management System",
+    "form": {
+      "createTitle": "Add a new account",
+      "editTitle": "Edit account information",
+      "username": "Username",
+      "password": "Password",
+      "fullName": "Full name",
+      "email": "Email",
+      "phone": "Phone number",
+      "role": "Role",
+      "status": "Status",
+      "submit": "Save",
+      "cancel": "Cancel"
+    }
+  },
+  "about": {
+    "title": "About",
+    "description": "The application supports multiple languages."
+  },
+  "language": {
+    "vietnamese": "Vietnamese",
+    "english": "English"
+  }
+}
