@@ -4,6 +4,8 @@ import HomePage from './page/Home';
 import ManaUser from './page/ManaUser';
 import ManaCompany from './page/ManaCompany';
 import ManaJobs from './page/ManaJob';
+import NotFound from './page/NotFound';
+
 import Layout from './component/layout';
 import { Routes, Route, Link, Outlet } from "react-router-dom";
 
@@ -18,6 +20,7 @@ function App() {
         <Route path="company" element={<ManaCompany />} />
         <Route path="jobs" element={<ManaJobs />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
     </>
     
