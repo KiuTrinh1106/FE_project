@@ -24,6 +24,8 @@ function ManaJob() {
   const [keyword, setKeyword] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [hideFilter, setHideFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const jobsPerPage = 5;
   const [loading, setLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -201,6 +203,14 @@ function ManaJob() {
     return matchesKeyword && matchesStatus && matchesHide;
   });
 
+  const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
+  const safeCurrentPage = Math.min(currentPage, Math.max(totalPages, 1));
+  const startIndex = (safeCurrentPage - 1) * jobsPerPage;
+  const paginatedJobs = filteredJobs.slice(
+    startIndex,
+    startIndex + jobsPerPage,
+  );
+
   return (
     <main className="container-fluid mt-4">
       <h1 className="mb-4">
@@ -222,7 +232,10 @@ function ManaJob() {
                 className="form-control"
                 placeholder="Tìm theo tiêu đề hoặc địa chỉ..."
                 value={keyword}
-                onChange={(event) => setKeyword(event.target.value)}
+                onChange={(event) => {
+                  setKeyword(event.target.value);
+                  setCurrentPage(1);
+                }}
               />
             </div>
             <div className="col-md-3 mb-2">
@@ -230,7 +243,10 @@ function ManaJob() {
               <select
                 className="form-control"
                 value={statusFilter}
-                onChange={(event) => setStatusFilter(event.target.value)}
+                onChange={(event) => {
+                  setStatusFilter(event.target.value);
+                  setCurrentPage(1);
+                }}
               >
                 <option value="">Tất cả</option>
                 <option value="OPEN">OPEN (Đang mở)</option>
@@ -243,7 +259,10 @@ function ManaJob() {
               <select
                 className="form-control"
                 value={hideFilter}
-                onChange={(event) => setHideFilter(event.target.value)}
+                onChange={(event) => {
+                  setHideFilter(event.target.value);
+                  setCurrentPage(1);
+                }}
               >
                 <option value="">Tất cả</option>
                 <option value="false">Đang hiển thị</option>
@@ -259,6 +278,7 @@ function ManaJob() {
                   setKeyword("");
                   setStatusFilter("");
                   setHideFilter("");
+                  setCurrentPage(1);
                 }}
               >
                 Xóa lọc
@@ -306,7 +326,7 @@ function ManaJob() {
               ) : filteredJobs.length === 0 ? (
                 <tr><td colSpan="9" className="text-center text-muted py-4">Không tìm thấy dữ liệu</td></tr>
               ) : (
-                filteredJobs.map((job) => (
+                paginatedJobs.map((job) => (
                   <tr key={job.jobId}>
                     <td>{job.jobId}</td>
                     <td>
@@ -341,6 +361,35 @@ function ManaJob() {
             </tbody>
           </table>
         </div>
+
+        {filteredJobs.length > 0 && (
+          <div className="card-footer d-flex justify-content-between align-items-center">
+            
+            <div className="d-flex align-items-center">
+              <button
+                type="button"
+                className="btn btn-outline-primary btn-sm mr-2"
+                disabled={safeCurrentPage === 1}
+                onClick={() => setCurrentPage((page) => Math.max(page - 1, 1))}
+              >
+                Trước
+              </button>
+
+              <span>
+                Trang {safeCurrentPage} / {totalPages}
+              </span>
+
+              <button
+                type="button"
+                className="btn btn-outline-primary btn-sm ml-2"
+                disabled={safeCurrentPage === totalPages}
+                onClick={() => setCurrentPage((page) => Math.min(page + 1, totalPages))}
+              >
+                Sau
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {showModal && (
