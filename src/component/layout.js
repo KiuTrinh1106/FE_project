@@ -6,7 +6,9 @@ function Layout() {
   const { t, i18n } = useTranslation();
 
   const toggleLanguage = () => {
-    i18n.changeLanguage(i18n.language === "vi" ? "en" : "vi");
+    const nextLanguage = i18n.language === "vi" ? "en" : "vi";
+    i18n.changeLanguage(nextLanguage);
+    localStorage.setItem("language", nextLanguage);
   };
 
   return (
