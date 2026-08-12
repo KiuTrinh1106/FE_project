@@ -18,6 +18,14 @@ function ManaUser() {
         role: 'STUDENT',
         status: 'ACTIVE'
     });
+    // để lưu thông báo lỗi:
+    const [errors, setErrors] = useState({
+    username: '',
+    password: '',
+    email: '',
+    fullName: '',
+    phone: ''
+    });
 
     // State để biết đang ở chế độ "Thêm mới" hay "Sửa" (true = Đang sửa)
     const [isEditing, setIsEditing] = useState(false);
@@ -39,15 +47,110 @@ function ManaUser() {
     // Xử lý khi gõ vào các ô input của Form
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
+        // Cập nhật dữ liệu form
+        /* setFormData({
             ...formData,
             [name]: value
-        });
+        }); */
+        setFormData((previousFormData) => ({
+        ...previousFormData,
+        [name]: value
+        }));
+
+        // Kiểm tra lỗi ngay khi gõ
+        const errorMessage = validateField(name, value);
+
+        // lưu hoặc xóa thông báo lỗi
+        setErrors((previousErrors) => ({
+        ...previousErrors,
+        [name]: errorMessage
+        }));
+
     };
+
+    // Hàm kiểm tra lỗi
+    const validateField = (name, value) => {
+    const trimmedValue = value.trim();
+
+    switch (name) {
+        case 'username':
+            if (!trimmedValue) {
+                return 'Tên đăng nhập không được để trống';
+            }
+
+            if (trimmedValue.length < 4) {
+                return 'Tên đăng nhập phải có ít nhất 4 ký tự';
+            }
+
+            if (/\s/.test(value)) {
+                return 'Tên đăng nhập không được chứa khoảng trắng';
+            }
+
+            return '';
+
+        case 'password':
+            if (!isEditing && !value) {
+                return 'Mật khẩu không được để trống';
+            }
+
+            if (value && value.length < 6) {
+                return 'Mật khẩu phải có ít nhất 6 ký tự';
+            }
+
+            return '';
+
+        case 'fullName':
+            if (!trimmedValue) {
+                return 'Họ và tên không được để trống';
+            }
+
+            if (trimmedValue.length < 2) {
+                return 'Họ và tên phải có ít nhất 2 ký tự';
+            }
+
+            return '';
+
+        case 'email':
+            if (!trimmedValue) {
+                return 'Email không được để trống';
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedValue)) {
+                return 'Email không đúng định dạng';
+            }
+
+            return '';
+
+        case 'phone':
+            if (
+                trimmedValue &&
+                !/^(0|\+84)[0-9]{9}$/.test(trimmedValue)
+            ) {
+                return 'Số điện thoại không đúng định dạng';
+            }
+
+            return '';
+
+        default:
+            return '';
+    }
+};
 
     // Hàm bấm nút LƯU (Xử lý cả Thêm và Sửa)
     const handleSubmit = async (e) => {
         e.preventDefault(); // Ngăn trang web bị reload khi submit form
+        const nextErrors = {
+        username: validateField('username', formData.username),
+        password: validateField('password', formData.password),
+        email: validateField('email', formData.email),
+        fullName: validateField('fullName', formData.fullName),
+        phone: validateField('phone', formData.phone),
+        };
+
+setErrors(nextErrors);
+
+const hasError = Object.values(nextErrors).some(Boolean);
+if (hasError) return;
 
         try {
             if (isEditing) {
@@ -145,60 +248,85 @@ function ManaUser() {
                                 <label className="form-label">{t('userManagement.form.username')}</label>
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={`form-control ${errors.username ? 'is-invalid' : ''}`}
                                     name="username"
                                     value={formData.username}
                                     onChange={handleInputChange}
                                     required
-                                    disabled={isEditing} // Thường sửa thì ko cho sửa username
+                                    disabled={isEditing} 
                                 />
+                                {errors.username && (
+                                <div className="invalid-feedback">
+                                {errors.username}
+                            </div>
+)}
                             </div>
 
                             <div className="col-md-3">
                                 <label className="form-label">{t('userManagement.form.password')}</label>
                                 <input
                                     type="password"
-                                    className="form-control"
+                                    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                                     name="password"
                                     value={formData.password}
                                     onChange={handleInputChange}
-                                    required={!isEditing} // Thêm mới thì bắt buộc, sửa thì tùy
+                                    required={!isEditing} 
                                 />
+                                {errors.password && (
+                                    <div className="invalid-feedback">
+                                        {errors.password}
+                                    </div>
+                                )}
                             </div>
 
                             <div className="col-md-3">
                                 <label className="form-label">{t('userManagement.form.fullName')}</label>
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={`form-control ${errors.fullName ? 'is-invalid' : ''}`}
                                     name="fullName"
                                     value={formData.fullName}
                                     onChange={handleInputChange}
                                     required
                                 />
+                                {errors.fullName && (
+                                    <div className="invalid-feedback">
+                                        {errors.fullName}
+                                    </div>
+                                )}
                             </div>
 
                             <div className="col-md-3">
                                 <label className="form-label">{t('userManagement.form.email')}</label>
                                 <input
                                     type="email"
-                                    className="form-control"
+                                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                                     name="email"
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     required
                                 />
+                                {errors.email && (
+                                    <div className="invalid-feedback">
+                                        {errors.email}
+                                    </div>
+                                )}
                             </div>
 
                             <div className="col-md-3">
                                 <label className="form-label">{t('userManagement.form.phone')}</label>
                                 <input
                                     type="text"
-                                    className="form-control"
+                                    className={`form-control ${errors.phone ? 'is-invalid' : ''}`}
                                     name="phone"
                                     value={formData.phone}
                                     onChange={handleInputChange}
                                 />
+                                {errors.phone && (
+                                    <div className="invalid-feedback">
+                                        {errors.phone}
+                                    </div>
+                                )}
                             </div>
 
                             <div className="col-md-3">
