@@ -37,11 +37,31 @@
       "status": "Trạng thái (Status)",
       "submit": "Lưu",
       "cancel": "Hủy"
+    },
+    "table": {
+      "id": "ID",
+      "username": "Username",
+      "fullName": "Họ tên",
+      "email": "Email",
+      "phone": "SĐT",
+      "role": "Vai trò",
+      "status": "Trạng thái",
+      "actions": "Hành động"
+    },
+    "noData": "Chưa có dữ liệu",
+    "actions": {
+      "edit": "Sửa",
+      "delete": "Xóa"
     }
   },
   "about": {
     "title": "Giới thiệu",
     "description": "Ứng dụng hỗ trợ nhiều ngôn ngữ."
+  },
+  "notFound": {
+    "title": "Không tìm thấy trang",
+    "message": "Đường dẫn bạn đang truy cập không tồn tại.",
+    "backHome": "Quay về trang chủ"
   },
   "language": {
     "vietnamese": "Tiếng Việt",

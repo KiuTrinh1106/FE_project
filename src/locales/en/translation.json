@@ -37,11 +37,31 @@
       "status": "Status",
       "submit": "Save",
       "cancel": "Cancel"
+    },
+    "table": {
+      "id": "ID",
+      "username": "Username",
+      "fullName": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "role": "Role",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "noData": "No data available",
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
     }
   },
   "about": {
     "title": "About",
     "description": "The application supports multiple languages."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "message": "The page you are looking for does not exist.",
+    "backHome": "Back to home"
   },
   "language": {
     "vietnamese": "Vietnamese",

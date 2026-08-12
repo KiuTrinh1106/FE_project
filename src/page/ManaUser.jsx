@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import userService from '../services/userServices';
 
 function ManaUser() {
+    const { t } = useTranslation();
     const [users, setUsers] = useState([]);
 
 
@@ -129,18 +131,18 @@ function ManaUser() {
     
     return(
         <div className="container-fluid mt-4">
-            <h1>Hệ thống Quản lý Người dùng</h1>
+            <h1>{t('userManagement.title')}</h1>
 
             {/* ================= PHẦN FORM THÊM / SỬA ACCOUNT ================= */}
             <div className="card my-4">
                 <div className="card-header">
-                    <strong>{isEditing ? 'Sửa thông tin Account' : 'Thêm Account mới'}</strong>
+                    <strong>{isEditing ? t('userManagement.form.editTitle') : t('userManagement.form.createTitle')}</strong>
                 </div>
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
                         <div className="row g-3">
                             <div className="col-md-3">
-                                <label className="form-label">Username</label>
+                                <label className="form-label">{t('userManagement.form.username')}</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -153,7 +155,7 @@ function ManaUser() {
                             </div>
 
                             <div className="col-md-3">
-                                <label className="form-label">Password</label>
+                                <label className="form-label">{t('userManagement.form.password')}</label>
                                 <input
                                     type="password"
                                     className="form-control"
@@ -165,7 +167,7 @@ function ManaUser() {
                             </div>
 
                             <div className="col-md-3">
-                                <label className="form-label">Họ và tên</label>
+                                <label className="form-label">{t('userManagement.form.fullName')}</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -177,7 +179,7 @@ function ManaUser() {
                             </div>
 
                             <div className="col-md-3">
-                                <label className="form-label">Email</label>
+                                <label className="form-label">{t('userManagement.form.email')}</label>
                                 <input
                                     type="email"
                                     className="form-control"
@@ -189,7 +191,7 @@ function ManaUser() {
                             </div>
 
                             <div className="col-md-3">
-                                <label className="form-label">Số điện thoại</label>
+                                <label className="form-label">{t('userManagement.form.phone')}</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -200,7 +202,7 @@ function ManaUser() {
                             </div>
 
                             <div className="col-md-3">
-                                <label className="form-label">Vai trò (Role)</label>
+                                <label className="form-label">{t('userManagement.form.role')}</label>
                                 <select
                                     className="form-select"
                                     name="role"
@@ -214,7 +216,7 @@ function ManaUser() {
                             </div>
 
                             <div className="col-md-3">
-                                <label className="form-label">Trạng thái (Status)</label>
+                                <label className="form-label">{t('userManagement.form.status')}</label>
                                 <select
                                     className="form-select"
                                     name="status"
@@ -229,11 +231,11 @@ function ManaUser() {
                             {/* CÁC NÚT BẤM CỦA FORM */}
                             <div className="col-md-3 d-flex align-items-end">
                                 <button type="submit" className="btn btn-primary me-2">
-                                    {isEditing ? 'Cập nhật' : '+ Thêm mới'}
+                                    {isEditing ? t('userManagement.form.submit') : `+ ${t('userManagement.form.createTitle')}`}
                                 </button>
                                 {isEditing && (
                                     <button type="button" className="btn btn-secondary" onClick={resetForm}>
-                                        Hủy
+                                        {t('userManagement.form.cancel')}
                                     </button>
                                 )}
                             </div>
@@ -246,20 +248,20 @@ function ManaUser() {
             <table className="table table-hover mt-3 border">
                 <thead className="table-dark">
                     <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Họ tên</th>
-                        <th>Email</th>
-                        <th>SĐT</th>
-                        <th>Vai trò</th>
-                        <th>Trạng thái</th>
-                        <th>Hành động</th>
+                        <th>{t('userManagement.table.id')}</th>
+                        <th>{t('userManagement.table.username')}</th>
+                        <th>{t('userManagement.table.fullName')}</th>
+                        <th>{t('userManagement.table.email')}</th>
+                        <th>{t('userManagement.table.phone')}</th>
+                        <th>{t('userManagement.table.role')}</th>
+                        <th>{t('userManagement.table.status')}</th>
+                        <th>{t('userManagement.table.actions')}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {users.length === 0 ? (
                         <tr>
-                            <td colSpan="8" className="text-center">Chưa có dữ liệu</td>
+                            <td colSpan="8" className="text-center">{t('userManagement.noData')}</td>
                         </tr>
                     ) : (
                         users.map((acc) => (
@@ -276,13 +278,13 @@ function ManaUser() {
                                         className="btn btn-warning btn-sm me-2"
                                         onClick={() => handleEditClick(acc)}
                                     >
-                                        Sửa
+                                        {t('userManagement.actions.edit')}
                                     </button>
                                     <button
                                         className="btn btn-danger btn-sm"
                                         onClick={() => handleDelete(acc.userId || acc.user_id)}
                                     >
-                                        Xóa
+                                        {t('userManagement.actions.delete')}
                                     </button>
                                 </td>
                             </tr>
